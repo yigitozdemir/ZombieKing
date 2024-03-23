@@ -1,6 +1,7 @@
 package com.yigitozemir.zombieking.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.yigitozemir.zombieking.npc.Human;
 import com.yigitozemir.zombieking.npc.Zombie;
 
 public class Level {
@@ -28,7 +30,10 @@ public class Level {
 	 * list of zombies
 	 */
 	private ArrayList<Zombie> zombies = new ArrayList<Zombie>();
-	
+	/**
+	 * List of humans
+	 */
+	private ArrayList<Human> humans = new ArrayList<Human>();
 	
 	public Level() {
 		FileHandle fileHandle = Gdx.files.internal("Spritesheet.png");
@@ -52,6 +57,7 @@ public class Level {
 		
 		renderBg(spriteBatch);
 		renderZombies(spriteBatch);
+		renderHumans(spriteBatch);
 	}
 	
 	private void handleCemeraInput() {
@@ -100,10 +106,22 @@ public class Level {
 		}
 	}
 	
-	
+	/**
+	 * This method renders the zombies
+	 * @param spriteBatch
+	 */
 	private void renderZombies(SpriteBatch spriteBatch) {
 		for (Zombie zombie : zombies) {
 			spriteBatch.draw(zombie.getTextureRegion(), zombie.getX(), zombie.getY());
+		}
+	}
+	/**
+	 * this method renders the humans
+	 * @param spriteBatch
+	 */
+	private void renderHumans(SpriteBatch spriteBatch) {
+		for(Human human : humans) {
+			spriteBatch.draw(human.getTextureRegion(), human.getX(), human.getY());
 		}
 	}
 }
