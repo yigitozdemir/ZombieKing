@@ -1,14 +1,12 @@
 package com.yigitozemir.zombieking.data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.yigitozemir.zombieking.npc.Human;
@@ -27,13 +25,17 @@ public class Level {
 	 */
 	private OrthographicCamera camera;
 	/**
-	 * list of zombies
+	 * List of zombies
 	 */
 	private ArrayList<Zombie> zombies = new ArrayList<Zombie>();
 	/**
 	 * List of humans
 	 */
 	private ArrayList<Human> humans = new ArrayList<Human>();
+	/**
+	 * List of building
+	 */
+	private ArrayList<Building> buildings = new ArrayList<>();
 	
 	public Level() {
 		FileHandle fileHandle = Gdx.files.internal("Spritesheet.png");
@@ -47,6 +49,12 @@ public class Level {
 		camera.update();
 		
 		zombies.add(new Zombie(20, 25));
+		
+		Building b1 = new Building(30, 30, 3);
+		Building b2 = new Building(60, 60, 4);
+		buildings.add(b1);
+		buildings.add(b2);
+		
 	}
 	
 	public void renderLevel(float delta, SpriteBatch spriteBatch) {
@@ -58,6 +66,19 @@ public class Level {
 		renderBg(spriteBatch);
 		renderZombies(spriteBatch);
 		renderHumans(spriteBatch);
+		renderBuildings(spriteBatch);
+	}
+	
+	/**
+	 * Render buildings
+	 * @param spriteBatch
+	 */
+	private void renderBuildings(SpriteBatch spriteBatch) {
+		for(Building building : buildings) {
+			for(BuildingUnit buildingUnit : building.getBuildingUnits()) {
+				spriteBatch.draw(buildingUnit.getTextureRegion(), buildingUnit.getX(), buildingUnit.getY());
+			}
+		}
 	}
 	
 	private void handleCemeraInput() {
@@ -124,4 +145,6 @@ public class Level {
 			spriteBatch.draw(human.getTextureRegion(), human.getX(), human.getY());
 		}
 	}
+	
+	
 }
