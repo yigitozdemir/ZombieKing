@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("ZombieKing");
+		config.setWindowedMode(1280, 960);
 		new Lwjgl3Application(new ZombieKingGame(), config);
 	}
 }
