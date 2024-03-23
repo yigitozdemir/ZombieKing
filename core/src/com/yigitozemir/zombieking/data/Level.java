@@ -1,5 +1,7 @@
 package com.yigitozemir.zombieking.data;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.yigitozemir.zombieking.npc.Zombie;
 
 public class Level {
 	private int MAP_WIDTH = 30;
@@ -21,6 +24,10 @@ public class Level {
 	 * main camera of the game
 	 */
 	private OrthographicCamera camera;
+	/**
+	 * list of zombies
+	 */
+	private ArrayList<Zombie> zombies = new ArrayList<Zombie>();
 	
 	
 	public Level() {
@@ -33,14 +40,18 @@ public class Level {
 		
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		camera.update();
+		
+		zombies.add(new Zombie(20, 25));
 	}
 	
 	public void renderLevel(float delta, SpriteBatch spriteBatch) {
 		handleCemeraInput();
+		
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
 		renderBg(spriteBatch);
+		renderZombies(spriteBatch);
 	}
 	
 	private void handleCemeraInput() {
@@ -74,6 +85,10 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * this method renders the green grasses in the background
+	 * @param spriteBatch
+	 */
 	private void renderBg(SpriteBatch spriteBatch) {
 		int i = 0, j = 0;
 		
@@ -82,6 +97,13 @@ public class Level {
 				spriteBatch.draw(backgroundTextureRegion, i * TILE_SIZE, j * TILE_SIZE);
 			}
 			j = 0;
+		}
+	}
+	
+	
+	private void renderZombies(SpriteBatch spriteBatch) {
+		for (Zombie zombie : zombies) {
+			spriteBatch.draw(zombie.getTextureRegion(), zombie.getX(), zombie.getY());
 		}
 	}
 }
