@@ -46,7 +46,9 @@ public class Level {
 	private void handleCemeraInput() {
 		// zoom out
 		if(Gdx.input.isKeyPressed(Keys.Q)) {
-			camera.zoom += 0.05;
+			if(camera.zoom < 10f) {
+				camera.zoom += 0.05;
+			}
 		}
 		// zoom in
 		if(Gdx.input.isKeyPressed(Keys.E)) {
