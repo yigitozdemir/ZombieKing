@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.yigitozemir.zombieking.npc.Human;
 import com.yigitozemir.zombieking.npc.Zombie;
 
@@ -37,6 +40,11 @@ public class Level {
 	 */
 	private ArrayList<Building> buildings = new ArrayList<>();
 	
+	/**
+	 * Debug purpose shape renderer
+	 */
+	private ShapeRenderer shapeRenderer;
+	
 	public Level() {
 		FileHandle fileHandle = Gdx.files.internal("Spritesheet.png");
 		Texture texture = new Texture(fileHandle);
@@ -50,6 +58,10 @@ public class Level {
 		
 		zombies.add(new Zombie(20, 25));
 		
+		// TODO: debug purposes, remove it
+		shapeRenderer = new ShapeRenderer();
+		shapeRenderer.setAutoShapeType(true);
+		
 		Building b1 = new Building(30, 30, 3);
 		Building b2 = new Building(60, 60, 4);
 		buildings.add(b1);
@@ -59,14 +71,34 @@ public class Level {
 	
 	public void renderLevel(float delta, SpriteBatch spriteBatch) {
 		handleCemeraInput();
-		
 		camera.update();
+		
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
+		spriteBatch.begin();
 		renderBg(spriteBatch);
 		renderZombies(spriteBatch);
 		renderHumans(spriteBatch);
 		renderBuildings(spriteBatch);
+		spriteBatch.end();
+		
+		debugBuildingUnits();
+	}
+	
+	/**
+	 * debug shape renderer for building units
+	 */
+	private void debugBuildingUnits() {
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.setColor(Color.WHITE);
+		shapeRenderer.begin();
+		
+		for(Building building : buildings) {
+			for(BuildingUnit buildingUnit : building.getBuildingUnits()) {
+				shapeRenderer.polygon(buildingUnit.getBuildingUnitPolygon().getVertices());
+			}
+		}
+		shapeRenderer.end();
 	}
 	
 	/**
@@ -77,6 +109,9 @@ public class Level {
 		for(Building building : buildings) {
 			for(BuildingUnit buildingUnit : building.getBuildingUnits()) {
 				spriteBatch.draw(buildingUnit.getTextureRegion(), buildingUnit.getX(), buildingUnit.getY());
+				
+				
+				
 			}
 		}
 	}

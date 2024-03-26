@@ -35,11 +35,11 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
-		spriteBatch.begin();
+		//spriteBatch.begin();
 		
 		level.renderLevel(delta, spriteBatch);
 		
-		spriteBatch.end();
+		//spriteBatch.end();
 	}
 
 	@Override

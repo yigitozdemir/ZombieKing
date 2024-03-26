@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * building class
@@ -71,33 +72,43 @@ public class Building {
 			
 			while(j < size) {
 				TextureRegion tr = null;
+				BuildingUnitShape buildingUnitShape = null;
+				
 				if(i == 0 && j == 0) {
 					tr = textureRegions[2];
+					buildingUnitShape = BuildingUnitShape.BOTTOMLEFT;
 				}
 				if(i == 0 && j == (size - 1)) {
 					tr = textureRegions[0];
+					buildingUnitShape = BuildingUnitShape.TOPLEFT;
 				}
 				if(i == (size - 1) && j == 0) {
 					tr = textureRegions[3];
+					buildingUnitShape = BuildingUnitShape.BOTTOMRIGHT;
 				}
 				if(i == (size - 1) && j == (size - 1)) {
 					tr = textureRegions[1];
+					buildingUnitShape = BuildingUnitShape.TOPRIGHT;
 				}
 				if(i == 0 && ( j != 0 && j != (size - 1))){
 					tr = textureRegions[5];
+					buildingUnitShape = BuildingUnitShape.LEFT;
 				}
 				if(i == (size - 1) && (j != 0 && j != (size - 1))) {
 					tr = textureRegions[6];
+					buildingUnitShape = BuildingUnitShape.RIGHT;
 				}
 				if(j == 0 && (i != 0 && i != (size - 1))) {
 					tr = textureRegions[4];
+					buildingUnitShape = BuildingUnitShape.BOTTOM;
 				}
 				if(j == (size - 1) && (i != 0 && i != (size - 1))) {
 					tr = textureRegions[7];
+					buildingUnitShape = BuildingUnitShape.TOP;
 				}
 				
 				if(tr != null) {
-					BuildingUnit buildingUnit = new BuildingUnit(x + i * TILE_SIZE, y + j * TILE_SIZE, tr);
+					BuildingUnit buildingUnit = new BuildingUnit(x + i * TILE_SIZE, y + j * TILE_SIZE, tr, buildingUnitShape);
 					buildingUnits.add(buildingUnit);
 				}
 				
