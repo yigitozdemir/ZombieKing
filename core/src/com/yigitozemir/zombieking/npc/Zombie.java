@@ -4,42 +4,68 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 /**
  * Zombie
  * TODO: implement animation
  */
 public class Zombie {
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	
 	private TextureRegion textureRegion;
 	
+	private boolean moving = false;
+	private Vector2 targetPosition = null;
 	
-	public Zombie(int x, int y) {
+	public Zombie(float x, float y) {
 		this.x = x;
 		this.y = y;
 
 		FileHandle fileHandle = Gdx.files.internal("Spritesheet.png");
 		textureRegion = new TextureRegion(new Texture(fileHandle), 16, 0, 8, 8);
 	}
+	/**
+	 * Method for doing zombie calculations
+	 * TODO: make it common in statemachine
+	 */
+	public void update() {
+		if(isMoving()) {
+			System.out.println("moving");
+		}
+	}
 
-
-	public int getX() {
+	public float getX() {
 		return x;
 	}
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	public TextureRegion getTextureRegion() {
 		return textureRegion;
 	}
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	public void setTextureRegion(TextureRegion textureRegion) {
 		this.textureRegion = textureRegion;
+	}
+	public boolean isMoving() {
+		return moving;
+	}
+	public Vector2 getTargetPosition() {
+		return targetPosition;
+	}
+	public void setMoving(boolean isMoving) {
+		this.moving = isMoving;
+	}
+	public void setTargetPosition(Vector2 targetPosition) {
+		this.targetPosition = targetPosition;
+	}
+	public Vector2 getCurrentPosition() {
+		return new Vector2(x, y);
 	}
 }

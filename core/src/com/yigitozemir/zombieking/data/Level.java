@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 import com.yigitozemir.zombieking.npc.Human;
 import com.yigitozemir.zombieking.npc.Zombie;
 
@@ -45,6 +47,10 @@ public class Level {
 	 */
 	private ShapeRenderer shapeRenderer;
 	
+	/**
+	 * boolean map for path finding
+	 */
+	private boolean[][] walkableMap;
 	public Level() {
 		FileHandle fileHandle = Gdx.files.internal("Spritesheet.png");
 		Texture texture = new Texture(fileHandle);
@@ -83,6 +89,7 @@ public class Level {
 		spriteBatch.end();
 		
 		debugBuildingUnits();
+	
 	}
 	
 	/**
@@ -109,9 +116,6 @@ public class Level {
 		for(Building building : buildings) {
 			for(BuildingUnit buildingUnit : building.getBuildingUnits()) {
 				spriteBatch.draw(buildingUnit.getTextureRegion(), buildingUnit.getX(), buildingUnit.getY());
-				
-				
-				
 			}
 		}
 	}
