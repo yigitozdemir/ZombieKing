@@ -3,7 +3,7 @@ package com.yigitozemir.zombieking.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.yigitozemir.zombieking.ZombieKingGame;
+import com.yigitozdemir.zombieking.ZombieKingGame;
 
 public class HtmlLauncher extends GwtApplication {
 

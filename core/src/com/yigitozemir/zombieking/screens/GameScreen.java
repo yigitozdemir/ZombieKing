@@ -3,7 +3,7 @@ package com.yigitozemir.zombieking.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.yigitozemir.zombieking.ZombieKingGame;
+import com.yigitozdemir.zombieking.ZombieKingGame;
 import com.yigitozemir.zombieking.data.Level;
 
 public class GameScreen implements Screen {

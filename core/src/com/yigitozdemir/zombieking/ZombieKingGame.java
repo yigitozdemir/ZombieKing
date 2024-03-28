@@ -1,4 +1,4 @@
-package com.yigitozemir.zombieking;
+package com.yigitozdemir.zombieking;
 
 import com.badlogic.gdx.Game;
 import com.yigitozemir.zombieking.screens.GameScreen;
