@@ -1,7 +1,7 @@
 package com.yigitozdemir.zombieking;
 
 import com.badlogic.gdx.Game;
-import com.yigitozemir.zombieking.screens.GameScreen;
+import com.yigitozdemir.zombieking.screens.GameScreen;
 
 public class ZombieKingGame extends Game {
 	
